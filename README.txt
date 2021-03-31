@@ -8,6 +8,7 @@ On a Windows 10 PC with .net sdk 5.0+ installed...
 5.) Click 'Properties'
 6.) Check the box for multiple startup projects and move the Web API to the top priority. Set from "None" to "Start without debugging" on the dropdown for both projects.
 7.) Click Apply
+8.) Your sql connection string is defined in the appsettings.json file of the Web API project. In there you can replace the value of the "local" key as needed.
 8.) Clean the solution (in the Build Tab)
 9.) Build the solution (in the Build Tab)
 10.) Click Start without debugging under the "Debug" tab
