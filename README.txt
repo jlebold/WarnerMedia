@@ -1,7 +1,7 @@
 Run instructions:
 On a Windows 10 PC with .net sdk 5.0+ installed...
 
-1.) clone this repo
+1.) Clone this repo
 2.) Open Visual Studio as Administrator
 3.) Open this solution's .sln
 4.) Clean the solution (in the Build Tab)

@@ -20,6 +20,8 @@ namespace WarnerMedia
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            //IOC Container initialization for our WebApiService
             services.AddScoped<IWebApiService, WebApiService>();
             WebApiService.SetupClient();
         }

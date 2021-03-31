@@ -20,6 +20,7 @@ namespace WarnerMedia.Controllers
             this.client = client;
         }
 
+        [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
         public IActionResult Index()
         {
             ICollection<TitleDto> resultContent = null;
@@ -31,7 +32,6 @@ namespace WarnerMedia.Controllers
             {
                 logger.LogError(ex.Message);
             }
-
             return View(resultContent);
         }
 
@@ -91,7 +91,6 @@ namespace WarnerMedia.Controllers
             }
             return View(resultContent);
         }
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

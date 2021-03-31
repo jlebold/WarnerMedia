@@ -14,10 +14,10 @@ namespace Web_API.Model.Dto
         public int? ReleaseYear { get; set; }
         public DateTime? ProcessedDateTimeUtc { get; set; }
 
-        public virtual ICollection<AwardDto> Awards { get; set; }
-        public virtual ICollection<OtherNameDto> OtherNames { get; set; }
-        public virtual ICollection<StoryLineDto> StoryLines { get; set; }
-        public virtual ICollection<TitleGenreDto> TitleGenres { get; set; }
-        public virtual ICollection<TitleParticipantDto> TitleParticipants { get; set; }
+        public ICollection<AwardDto> Awards { get; set; }
+        public ICollection<OtherNameDto> OtherNames { get; set; }
+        public ICollection<StoryLineDto> StoryLines { get; set; }
+        public ICollection<TitleGenreDto> TitleGenres { get; set; }
+        public ICollection<TitleParticipantDto> TitleParticipants { get; set; }
     }
 }

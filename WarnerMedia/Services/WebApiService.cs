@@ -13,14 +13,19 @@ namespace WarnerMedia.Services
 
         public ICollection<TitleDto> GetBasics()
         {
+            //TODO maybe put api strings in a const file
+            //TODO do we want true async?
+            //HttpContext.Response.Redirect("Index");
             var result = Client.GetAsync("api/titles/basics").GetAwaiter().GetResult();
-            var resultContent = result.Content.ReadAsAsync<ICollection<TitleDto>>().GetAwaiter().GetResult();
+            var resultContentJson = result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            var resultContent = JsonConvert.DeserializeObject<ICollection<TitleDto>>(resultContentJson);
             return resultContent;
         }
 
         public TitleDto GetTitleDetail(int titleId)
         {
             //title only has the basics here since we are lazy loading, let's get the rest.
+
             var result = Client.GetAsync($"api/titles/detail/{titleId}").GetAwaiter().GetResult();
             var resultContentJson = result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
             var resultContent = JsonConvert.DeserializeObject<TitleDto>(resultContentJson);
@@ -53,6 +58,7 @@ namespace WarnerMedia.Services
 
         public static void SetupClient()
         {
+            //TODO put the string in an appSettings
             Client.BaseAddress = new Uri("https://localhost:44365/titles");
         }
 

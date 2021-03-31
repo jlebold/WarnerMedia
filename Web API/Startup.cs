@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+using Web_API.Repositories;
 
 namespace Web_API
 {
@@ -19,11 +19,15 @@ namespace Web_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Configure MaxDepth to avoid object cycles when passing data from the api. 5 is an arbitrary number that works for our solution here.
             services.AddControllers()
             .AddJsonOptions(o =>
             {
-                o.JsonSerializerOptions.MaxDepth = 5;
-            }); 
+                o.JsonSerializerOptions.MaxDepth = 12;
+            });
+
+            //Want a single instance of the repository for the duration of the API's life
+            services.AddSingleton<ITitlesRepository, TitlesRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

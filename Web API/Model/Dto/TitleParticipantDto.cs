@@ -13,6 +13,6 @@ namespace Web_API.Model.Dto
         public bool IsKey { get; set; }
         public string RoleType { get; set; }
         public bool IsOnScreen { get; set; }
-        public virtual ParticipantDto Participant { get; set; }
+        public ParticipantDto Participant { get; set; }
     }
 }

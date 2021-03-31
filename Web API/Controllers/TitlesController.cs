@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using Web_API.Model;
-using Microsoft.EntityFrameworkCore;
 using Web_API.Model.Dto;
-using AutoMapper;
+using Web_API.Repositories;
 
 namespace Web_API.Controllers
 {
@@ -13,87 +11,95 @@ namespace Web_API.Controllers
     [Route("api/[controller]")]
     public class TitlesController : ControllerBase
     {
+        private readonly ILogger<TitlesController> logger;
+        private readonly ITitlesRepository titlesRepository;
 
-        private readonly ILogger<TitlesController> _logger;
-        private IMapper autoMappings;
-        private TitlesContext context;
-
-        public TitlesController(ILogger<TitlesController> logger)
+        public TitlesController(ILogger<TitlesController> logger, ITitlesRepository titlesRepository)
         {
-            context = new TitlesContext();
-            _logger = logger;
-
-            var config = new MapperConfiguration(cfg => {
-                cfg.CreateMap<Title, TitleDto>();
-                cfg.CreateMap<Award, AwardDto>();
-                cfg.CreateMap<StoryLine, StoryLineDto>();
-                cfg.CreateMap<OtherName, OtherNameDto>();
-                cfg.CreateMap<TitleParticipant, TitleParticipantDto>();
-                cfg.CreateMap<Participant, ParticipantDto>();
-                cfg.CreateMap<TitleGenre, TitleGenreDto>();
-                cfg.CreateMap<Genre, GenreDto>();
-            });
-
-            autoMappings = config.CreateMapper();
+            this.titlesRepository = titlesRepository;
+            this.logger = logger;
         }
 
-        // GET: api/basics
+        // GET: api/titles/basics
         [HttpGet("basics")]
-        public ICollection<Title> Get()
+        public ICollection<TitleDto> GetTitles()
         {
-            var response = context.Titles.ToArray();
-            return response;
+            try
+            {
+                var dtos = titlesRepository.GetTitleDtos();
+                return dtos;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return null;
+            }
+
         }
 
         // GET: api/titles/detail/2
         [HttpGet("detail/{titleId}")]
         public TitleDto GetDetail(int titleId)
         {
-            var response = context.Titles.Where(x => x.TitleId == titleId)
-                    .Include(x => x.StoryLines)
-                    .Include(x => x.OtherNames)
-                    .Include(x => x.TitleGenres)
-                    .ThenInclude(x => x.Genre)
-                    .Single();
-
-            var mappedResponse = autoMappings.Map<Title, TitleDto>(response);
-
-            return mappedResponse;
+            try
+            {
+                var dto = titlesRepository.GetDetailDto(titleId);
+                return dto;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return null;
+            }
         }
 
         // GET: api/titles/awards/2
         [HttpGet("awards/{titleId}")]
         public ICollection<AwardDto> GetAwards(int titleId)
         {
-            var response = context.Awards.Where(x => x.TitleId == titleId).ToArray();
-
-            var mappedResponse = autoMappings.Map<ICollection<Award>, ICollection<AwardDto>>(response);
-
-            return mappedResponse;
+            try
+            {
+                var dtos = titlesRepository.GetAwardDtos(titleId);
+                return dtos;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return null;
+            }
         }        
         
         // GET: api/titles/participants/5
         [HttpGet("participants/{titleId}")]
         public ICollection<TitleParticipantDto> GetTitleParticipants(int titleId)
         {
-            var response = context.TitleParticipants
-                .Include(x => x.Participant)
-                .Where(x => x.TitleId == titleId).ToArray();
-
-            var mappedResponse = autoMappings.Map<ICollection<TitleParticipant>, ICollection<TitleParticipantDto>>(response);
-
-            return mappedResponse;
+            try
+            {
+                var dtos = titlesRepository.GetTitleParticipantDtos(titleId);
+                return dtos;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return null;
+            }
         }        
         
         // GET: api/titles/othernames/6
         [HttpGet("othernames/{titleId}")]
         public ICollection<OtherNameDto> GetOtherNames(int titleId)
         {
-            var response = context.OtherNames.Where(x => x.TitleId == titleId).ToArray();
+            try
+            {
+                var dtos = titlesRepository.GetOtherNameDtos(titleId);
+                return dtos;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                return null;
+            }
 
-            var mappedResponse = autoMappings.Map<ICollection<OtherName>, ICollection<OtherNameDto>>(response);
-
-            return mappedResponse;
         }
     }
 }
