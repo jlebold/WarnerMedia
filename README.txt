@@ -1,11 +1,12 @@
 Run instructions:
 On a Windows 10 PC with .net sdk 5.0+ installed...
 
-1.) Open Visual Studio as Administrator
-2.) Open this solution's .sln
-3.) Clean the solution (in the Build Tab)
-4.) Build the solution (in the Build Tab)
-5.) Click Start
+1.) clone this repo
+2.) Open Visual Studio as Administrator
+3.) Open this solution's .sln
+4.) Clean the solution (in the Build Tab)
+5.) Build the solution (in the Build Tab)
+6.) Click Start
 
 NOTE:
 The solution should be defaulted for multiple startup projects (with the Web API as the priority)
