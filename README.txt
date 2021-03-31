@@ -1,16 +1,20 @@
 Run instructions:
 On a Windows 10 PC with .net sdk 5.0+ installed...
 
-1.) Clone this repo
+1.) Clone or download the zip this repo
 2.) Open Visual Studio as Administrator
 3.) Open this solution's .sln
-4.) Clean the solution (in the Build Tab)
-5.) Build the solution (in the Build Tab)
-6.) Click Start
+4.) Right click the 'WarnerMedia' solution (NOT THE PROJECT FILE)
+5.) Click 'Properties'
+6.) Check the box for multiple startup projects and move the Web API to the top priority. Set from "None" to "Start without debugging" on the dropdown for both projects.
+7.) Click Apply
+8.) Your sql connection string is defined in the appsettings.json file of the Web API project. In there you can replace the value of the "local" key as needed.
+8.) Clean the solution (in the Build Tab)
+9.) Build the solution (in the Build Tab)
+10.) Click Start without debugging under the "Debug" tab
+11.) Two tabs should open up in your browser. One serves as the API and will display a 404, leave it open on the side. The second serves as the user interface.
 
-NOTE:
-The solution should be defaulted for multiple startup projects (with the Web API as the priority)
-	If such is not the case:
-		1.) Right click the 'WarnerMedia' solution
-		2.) Click 'Properties'
-		3.) Check the box for multiple startup projects and move the Web API to the top priority
+Try using the Microsoft Edge browser if you run into any issues in your native browser.
+
+Cheers,
+Joe
