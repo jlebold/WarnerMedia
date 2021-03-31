@@ -1,0 +1,66 @@
+﻿@model WarnerMedia.Models.Dto.TitleDto
+
+@{
+    ViewData["Title"] = Model.TitleName;
+}
+<h1>@ViewData["Title"]</h1>
+
+<div>Released: @Model.ReleaseYear</div>
+<div>Genres: @string.Join(", ", Model.TitleGenres.Select(x => x.Genre.Name));</div> <br /><br />
+
+
+<div class="container">
+    <h3>Story Lines</h3>
+    <table id="storyLinesTable" class="table table-striped table-bordered table-sm table-dark" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th class="th-sm">
+                    Type
+                </th>
+                <th class="th-sm">
+                    Language
+                </th>
+                <th class="th-sm">
+                    Description
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var storyLine in Model.StoryLines)
+            {
+                <tr>
+                    <td>@storyLine.Type</td>
+                    <td>@storyLine.Language</td>
+                    <td>@storyLine.Description</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    <div class="row">
+        <div class="col-md-3 card detailCard">
+            <div class="card-body">
+                <h5 class="card-title">Awards</h5>
+                <p class="card-text">See this film's most prestigous honors and nominations.</p>
+                <a onclick="location.href = '@(Url.Action("Awards", "Home", Model ))'" class="btn btn-light stretched-link viewButton">View</a>
+            </div>
+        </div>
+
+        <div class="col-md-3 offset-md-1 card detailCard">
+            <div class="card-body">
+                <h5 class="card-title">Participants</h5>
+                <p class="card-text">Meet the film's cast, both on and off stage!</p> <br />
+                <a onclick="location.href = '@(Url.Action("Participants", "Home", Model ))'" class="btn btn-light stretched-link viewButton">View</a>
+            </div>
+        </div>
+
+        <div class="col-md-3 offset-md-1 card detailCard">
+            <div class="card-body">
+                <h5 class="card-title">Other Names</h5>
+                <p class="card-text">Check out your favorite film's aliases</p> <br />
+                <a onclick="location.href = '@(Url.Action("OtherNames", "Home", Model ))'" class="btn btn-light stretched-link viewButton">View</a>
+            </div>
+        </div>
+
+    </div>
+</div>

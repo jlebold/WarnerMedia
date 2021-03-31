@@ -1,10 +1,7 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+﻿a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */
@@ -18,16 +15,48 @@ a {
   border-color: #1861ac;
 }
 
+.viewButton {
+    background-color: #E5BC73;
+    color: black !important;
+}
+
+.detailCard {
+    background-color: #3E444A;
+    border-color: #3E444A;
+    max-width: 18rem;
+    margin-left: 70px;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
 
+.dataTables_wrapper
+.dataTables_length, div.dataTables_wrapper
+div.dataTables_filter label,
+div.dataTables_wrapper div.dataTables_info {
+    color: white;
+}
+
+
+.page-item.active .page-link {
+    background-color: #E5BC73 !important;
+    border: 1px solid black;
+}
+.page-link {
+    color: black !important;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 @media (min-width: 768px) {
   html {
@@ -59,8 +88,10 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-color: #242424;
+    color: white;
 }
 .footer {
   position: absolute;

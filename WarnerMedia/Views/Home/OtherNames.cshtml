@@ -1,0 +1,38 @@
+﻿@model ICollection<WarnerMedia.Models.Dto.OtherNameDto>
+
+<h3>Other Names</h3>
+
+@if (Model.Count > 0)
+{
+    <table id="otherNamesTable" class="table table-striped table-bordered table-sm table-dark" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th class="th-sm">
+                    Title Name Language
+                </th>
+                <th class="th-sm">
+                    Title Name Type
+                </th>
+                <th class="th-sm">
+                    Title Name
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var name in Model)
+            {
+                <tr>
+                    <td>@name.TitleNameLanguage</td>
+                    <td>@name.TitleNameType</td>
+                    <td>@name.TitleName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    <a class="btn btn-dark" onclick="history.go(-1); return false;" href="#">&laquo; Back</a>
+}
+else
+{
+    <div>Aww shucks, looks like this film has no other known names</div>
+}

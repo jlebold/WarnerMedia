@@ -1,5 +1,3 @@
-using System;
-
 namespace WarnerMedia.Models
 {
     public class ErrorViewModel

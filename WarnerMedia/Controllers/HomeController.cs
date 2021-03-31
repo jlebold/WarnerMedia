@@ -1,44 +1,97 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Net.Http;
-using System.Threading.Tasks;
 using WarnerMedia.Models;
-using System.Net.Http.Headers;
+using WarnerMedia.Models.Dto;
+using WarnerMedia.Services;
 
 namespace WarnerMedia.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        public static HttpClient webClient = new HttpClient();
+        private readonly ILogger<HomeController> logger;
+        private IWebApiService client;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IWebApiService client)
         {
-            _logger = logger;
-            webClient.BaseAddress = new Uri("https://localhost:44365/weatherforecast");
-            webClient.DefaultRequestHeaders.Clear();
-            webClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            this.logger = logger;
+            this.client = client;
         }
 
         public IActionResult Index()
         {
-            var result = webClient.GetAsync("Get").Result;
-            return View();
+            ICollection<TitleDto> resultContent = null;
+            try
+            {
+                resultContent = client.GetBasics();
+            }
+            catch (HttpRequestException ex)
+            {
+                logger.LogError(ex.Message);
+            }
+
+            return View(resultContent);
         }
 
-        public IActionResult Privacy()
+        public IActionResult TitleDetail(int titleId)
         {
-            return View();
+            TitleDto resultContent = null;
+            try
+            {
+                resultContent = client.GetTitleDetail(titleId);
+            }
+            catch (HttpRequestException ex)
+            {
+                logger.LogError(ex.Message);
+            }
+
+            return View(resultContent);
         }
 
-        public IActionResult Search()
+        public IActionResult Awards(int titleId)
         {
-            return View();
+            ICollection<AwardDto> resultContent = null;
+            try
+            {
+                resultContent = client.GetAwards(titleId);
+            }
+            catch (HttpRequestException ex)
+            {
+                logger.LogError(ex.Message);
+            }
+            return View(resultContent);
         }
+
+        public IActionResult Participants(int titleId)
+        {
+            ICollection<TitleParticipantDto> resultContent = null;
+            try
+            {
+                resultContent = client.GetParticipants(titleId);
+            }
+            catch (HttpRequestException ex)
+            {
+                logger.LogError(ex.Message);
+            }
+            return View(resultContent);
+        }        
+        
+        public IActionResult OtherNames(int titleId)
+        {
+            ICollection<OtherNameDto> resultContent = null;
+            try
+            {
+                resultContent = client.GetOtherNames(titleId);
+            }
+            catch (HttpRequestException ex)
+            {
+                logger.LogError(ex.Message);
+            }
+            return View(resultContent);
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
